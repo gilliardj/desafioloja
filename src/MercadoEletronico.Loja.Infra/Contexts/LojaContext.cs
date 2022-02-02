@@ -32,11 +32,6 @@ namespace MercadoEletronico.Loja.Infra.Contexts
                         .HasColumnName("numero_pedido")
                         .IsRequired();
 
-            //modelBuilder.Entity<PedidoEntity>()
-            //            .Property(p => p.Ativo)
-            //            .HasColumnName("ativo")
-            //            .IsRequired();
-
             #endregion Pedido => pedidos
 
             #region ItemPedido => itens_pedido
@@ -71,7 +66,7 @@ namespace MercadoEletronico.Loja.Infra.Contexts
                         .HasOne(e => e.Pedido)
                         .WithMany(e => e.ItensPedido)
                         .HasForeignKey(f => f.PedidoID)
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.Cascade);
 
             #endregion ItemPedido => itens_pedido
 

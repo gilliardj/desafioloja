@@ -26,7 +26,18 @@ namespace MercadoEletronico.Loja.Api.Controllers
         [HttpGet("{pedido}")]
         public async Task<IActionResult> ConsultarPedidoAsync(string pedido)
         {
-            return Ok(PedidoAdapter.ConverterPedidoEntityParaPedidoResponse(await _pedidoService.ConsultarPedidoPorNumeroPedido(pedido)));
+            if (string.IsNullOrEmpty(pedido))
+            {
+                return BadRequest("Favor informar o número do pedido");
+            }
+
+            var pedidoEntity = await _pedidoService.ConsultarPedidoPorNumeroPedidoAsync(pedido, false);
+            if (pedidoEntity == null)
+            {
+                return NotFound($"Número do pedido ({pedido}) não existe");
+            }
+
+            return Ok(PedidoAdapter.ConverterPedidoEntityParaPedidoResponse(pedidoEntity));
         }
 
         [HttpPost]
@@ -34,7 +45,13 @@ namespace MercadoEletronico.Loja.Api.Controllers
         {
             try
             {
-                await _pedidoService.CriarPedido(PedidoAdapter.ConverterPedidoRequestParaPedidoEntity(pedidoRequest));
+                var pedidoExistente = _pedidoService.ConsultarPedidoPorNumeroPedidoAsync(pedidoRequest.Pedido, false);
+                if (pedidoExistente != null)
+                {
+                    return BadRequest($"Número do pedido ({pedidoRequest.Pedido}) já existe");
+                }
+
+                await _pedidoService.CriarPedidoAsync(PedidoAdapter.ConverterPedidoRequestParaPedidoEntity(pedidoRequest));
                 return Created(uri: $"/api/Pedido/{pedidoRequest.Pedido}", pedidoRequest);
             }
             catch (System.Exception exception)
@@ -50,14 +67,14 @@ namespace MercadoEletronico.Loja.Api.Controllers
             try
             {
                 if (pedido != pedidoRequest.Pedido)
-                    return BadRequest("Pedido informado incorretamente.");
+                    return BadRequest("Número do pedido informado incorretamente.");
 
-                var pedidoEntity = await _pedidoService.ConsultarPedidoPorNumeroPedido(pedido);
+                var pedidoEntity = await _pedidoService.ConsultarPedidoPorNumeroPedidoAsync(pedido, true);
 
                 if (pedidoEntity == null)
-                    return NotFound($"Pedido com número {pedido} não encontrado.");
+                    return NotFound($"Número do pedido ({pedido}) não existe");
 
-                await _pedidoService.AtualizarPedido(PedidoAdapter.MesclarPeidoEntityComPedidoRequest(pedidoEntity, pedidoRequest));
+                await _pedidoService.AtualizarPedidoAsync(PedidoAdapter.MesclarPeidoEntityComPedidoRequest(pedidoEntity, pedidoRequest));
                 return Ok(pedidoRequest);
             }
             catch (Exception exception)
@@ -73,8 +90,13 @@ namespace MercadoEletronico.Loja.Api.Controllers
         {
             try
             {
-                await _pedidoService.ExcluirPedidoPorNumeroPedido(pedido);
-                return StatusCode(200, "Item atualizado com sucesso");
+                var pedidoEntity = await _pedidoService.ConsultarPedidoPorNumeroPedidoAsync(pedido, true);
+                if (pedidoEntity == null)
+                {
+                    return NotFound($"Número do pedido ({pedido}) não existe");
+                }
+                await _pedidoService.ExcluirPedidoPorNumeroPedidoAsync(pedidoEntity);
+                return Ok($"Número do pedido ({pedido}) removido com sucesso");
             }
             catch (Exception exception)
             {

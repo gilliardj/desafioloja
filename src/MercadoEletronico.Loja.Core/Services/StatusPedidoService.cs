@@ -23,7 +23,7 @@ namespace MercadoEletronico.Loja.Core.Services
 
         public async Task<StatusPedidoEntity> ConsultarStatusPedidoAsync(StatusPedidoEntity statusPedidoEntity)
         {
-            var pedidoConsultado = await _pedidoRepository.ConsultarPedidoPorNumeroPedidoAsync(statusPedidoEntity.NumeroPedido);
+            var pedidoConsultado = await _pedidoRepository.ConsultarPedidoPorNumeroPedidoAsync(statusPedidoEntity.NumeroPedido, false);
             statusPedidoEntity.ResultadoStatus = new List<string>();
             if (pedidoConsultado == null)
             {

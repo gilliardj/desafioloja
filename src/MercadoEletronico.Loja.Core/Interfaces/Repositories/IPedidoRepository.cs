@@ -7,16 +7,16 @@ namespace MercadoEletronico.Loja.Core.Interfaces.Repositories
 {
     public interface IPedidoRepository
     {
-        Task<PedidoEntity> ConsultarPedidoPorIdAsync(Guid identificador);
+        Task<PedidoEntity> ConsultarPedidoPorIdentificacaoAsync(Guid identificador);
 
         Task CriarPedidoAsync(PedidoEntity Pedido);
 
         Task AtualizarPedidoAsync(PedidoEntity Pedido);
 
-        Task<IEnumerable<PedidoEntity>> ConsultarTodosPedidos();
+        Task<IEnumerable<PedidoEntity>> ConsultarTodosPedidosAsync();
 
-        Task<PedidoEntity> ConsultarPedidoPorNumeroPedidoAsync(string numeroPedido);
+        Task<PedidoEntity> ConsultarPedidoPorNumeroPedidoAsync(string numeroPedido, bool rastreavel);
 
-        Task ExcluirPedidoPorNumeroPedidoAsync(string numeroPedido);
+        Task ExcluirPedidoPorNumeroPedidoAsync(PedidoEntity pedidoEntity);
     }
 }

@@ -19,37 +19,42 @@ namespace MercadoEletronico.Loja.Infra.Repositories
             _lojaContext = lojaContext;
         }
 
-        public async Task<PedidoEntity> ConsultarPedidoPorIdAsync(Guid id)
+        public async Task<PedidoEntity> ConsultarPedidoPorIdentificacaoAsync(Guid id)
         {
             return await BuscarPodIdentificadorAsync(id);
         }
 
-        public async Task CriarPedidoAsync(PedidoEntity Pedido)
+        public async Task CriarPedidoAsync(PedidoEntity pedidoEntity)
         {
-            await CriarAsync(Pedido);
+            await CriarAsync(pedidoEntity);
         }
 
-        public async Task AtualizarPedidoAsync(PedidoEntity Pedido)
+        public async Task AtualizarPedidoAsync(PedidoEntity pedidoEntity)
         {
-            var itens = await _lojaContext.ItensPedido.Where(item => item.Pedido.PedidoID == Pedido.PedidoID).ToListAsync();
+            var itens = await _lojaContext.ItensPedido.Where(item => item.Pedido.PedidoID == pedidoEntity.PedidoID).ToListAsync();
             _lojaContext.RemoveRange(itens);
-            _lojaContext.Update(Pedido);
+            _lojaContext.Update(pedidoEntity);
             await _lojaContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<PedidoEntity>> ConsultarTodosPedidos()
+        public async Task<IEnumerable<PedidoEntity>> ConsultarTodosPedidosAsync()
         {
             return await BuscarTodos().ToListAsync();
         }
 
-        public async Task<PedidoEntity> ConsultarPedidoPorNumeroPedidoAsync(string numeroPedido)
+        public async Task<PedidoEntity> ConsultarPedidoPorNumeroPedidoAsync(string numeroPedido, bool rastreavel)
         {
-            return await _lojaContext.Pedidos.Include(pedido => pedido.ItensPedido).AsNoTracking().FirstOrDefaultAsync(pedido => pedido.NumeroPedido == numeroPedido);
+            return
+                rastreavel
+                ?
+                await _lojaContext.Pedidos.Include(pedido => pedido.ItensPedido).AsNoTracking().FirstOrDefaultAsync(pedido => pedido.NumeroPedido == numeroPedido)
+                :
+                await _lojaContext.Pedidos.Include(pedido => pedido.ItensPedido).FirstOrDefaultAsync(pedido => pedido.NumeroPedido == numeroPedido)
+                ;
         }
 
-        public async Task ExcluirPedidoPorNumeroPedidoAsync(string numeroPedido)
+        public async Task ExcluirPedidoPorNumeroPedidoAsync(PedidoEntity pedidoEntity)
         {
-            var pedidoEntity = await ConsultarPedidoPorNumeroPedidoAsync(numeroPedido);
             await ExcluirAsync(pedidoEntity);
         }
     }

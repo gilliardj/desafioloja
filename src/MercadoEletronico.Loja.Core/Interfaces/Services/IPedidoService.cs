@@ -5,12 +5,12 @@ namespace MercadoEletronico.Loja.Core.Interfaces.Services
 {
     public interface IPedidoService
     {
-        Task<PedidoEntity> ConsultarPedidoPorNumeroPedido(string numeroPedido);
+        Task<PedidoEntity> ConsultarPedidoPorNumeroPedidoAsync(string numeroPedido, bool rastreavel);
 
-        Task CriarPedido(PedidoEntity pedidoEntity);
+        Task CriarPedidoAsync(PedidoEntity pedidoEntity);
 
-        Task AtualizarPedido(PedidoEntity pedidoEntity);
+        Task AtualizarPedidoAsync(PedidoEntity pedidoEntity);
 
-        Task ExcluirPedidoPorNumeroPedido(string numeroPedido);
+        Task ExcluirPedidoPorNumeroPedidoAsync(PedidoEntity pedidoEntity);
     }
 }

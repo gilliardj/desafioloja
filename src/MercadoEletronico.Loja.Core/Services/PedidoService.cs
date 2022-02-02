@@ -14,24 +14,24 @@ namespace MercadoEletronico.Loja.Core.Services
             _pedidoRepository = pedidoRepository;
         }
 
-        public async Task AtualizarPedido(PedidoEntity pedidoEntity)
+        public async Task AtualizarPedidoAsync(PedidoEntity pedidoEntity)
         {
             await _pedidoRepository.AtualizarPedidoAsync(pedidoEntity);
         }
 
-        public async Task<PedidoEntity> ConsultarPedidoPorNumeroPedido(string numeroPedido)
+        public async Task<PedidoEntity> ConsultarPedidoPorNumeroPedidoAsync(string numeroPedido, bool rastreavel)
         {
-            return await _pedidoRepository.ConsultarPedidoPorNumeroPedidoAsync(numeroPedido);
+            return await _pedidoRepository.ConsultarPedidoPorNumeroPedidoAsync(numeroPedido, rastreavel);
         }
 
-        public async Task CriarPedido(PedidoEntity pedidoEntity)
+        public async Task CriarPedidoAsync(PedidoEntity pedidoEntity)
         {
             await _pedidoRepository.CriarPedidoAsync(pedidoEntity);
         }
 
-        public async Task ExcluirPedidoPorNumeroPedido(string numeroPedido)
+        public async Task ExcluirPedidoPorNumeroPedidoAsync(PedidoEntity pedidoEntity)
         {
-            await _pedidoRepository.ExcluirPedidoPorNumeroPedidoAsync(numeroPedido);
+            await _pedidoRepository.ExcluirPedidoPorNumeroPedidoAsync(pedidoEntity);
         }
     }
 }
