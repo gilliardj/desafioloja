@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "abef9aa4-e7d5-49d2-acc8-290e2f3d4a57",
+		"_postman_id": "2d0ab276-3907-41ee-9301-128fdae5aa8a",
 		"name": "TestesIntegradoLoja",
 		"description": "TestesIntegradoLoja",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -45,11 +45,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{servidor}}api/Pedido",
+					"raw": "{{servidor}}/api/Pedido",
 					"host": [
-						"{{servidor}}api"
+						"{{servidor}}"
 					],
 					"path": [
+						"api",
 						"Pedido"
 					]
 				}
@@ -94,11 +95,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{servidor}}api/status",
+					"raw": "{{servidor}}/api/status",
 					"host": [
-						"{{servidor}}api"
+						"{{servidor}}"
 					],
 					"path": [
+						"api",
 						"status"
 					]
 				}
@@ -144,11 +146,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{servidor}}api/status",
+					"raw": "{{servidor}}/api/status",
 					"host": [
-						"{{servidor}}api"
+						"{{servidor}}"
 					],
 					"path": [
+						"api",
 						"status"
 					]
 				}
@@ -198,11 +201,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{servidor}}api/status",
+					"raw": "{{servidor}}/api/status",
 					"host": [
-						"{{servidor}}api"
+						"{{servidor}}"
 					],
 					"path": [
+						"api",
 						"status"
 					]
 				}
@@ -247,11 +251,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{servidor}}api/status",
+					"raw": "{{servidor}}/api/status",
 					"host": [
-						"{{servidor}}api"
+						"{{servidor}}"
 					],
 					"path": [
+						"api",
 						"status"
 					]
 				}
@@ -296,11 +301,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{servidor}}api/status",
+					"raw": "{{servidor}}/api/status",
 					"host": [
-						"{{servidor}}api"
+						"{{servidor}}"
 					],
 					"path": [
+						"api",
 						"status"
 					]
 				}
@@ -345,11 +351,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{servidor}}api/status",
+					"raw": "{{servidor}}/api/status",
 					"host": [
-						"{{servidor}}api"
+						"{{servidor}}"
 					],
 					"path": [
+						"api",
 						"status"
 					]
 				}
@@ -386,11 +393,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{servidor}}api/Pedido/{{numeroPedido}}",
+					"raw": "{{servidor}}/api/Pedido/{{numeroPedido}}",
 					"host": [
-						"{{servidor}}api"
+						"{{servidor}}"
 					],
 					"path": [
+						"api",
 						"Pedido",
 						"{{numeroPedido}}"
 					]
@@ -437,11 +445,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{servidor}}api/Pedido/{{numeroPedido}}",
+					"raw": "{{servidor}}/api/Pedido/{{numeroPedido}}",
 					"host": [
-						"{{servidor}}api"
+						"{{servidor}}"
 					],
 					"path": [
+						"api",
 						"Pedido",
 						"{{numeroPedido}}"
 					]
@@ -472,11 +481,12 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{servidor}}api/Pedido/{{numeroPedido}}",
+					"raw": "{{servidor}}/api/Pedido/{{numeroPedido}}",
 					"host": [
-						"{{servidor}}api"
+						"{{servidor}}"
 					],
 					"path": [
+						"api",
 						"Pedido",
 						"{{numeroPedido}}"
 					]
