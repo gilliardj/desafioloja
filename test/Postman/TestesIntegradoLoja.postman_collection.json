@@ -1,0 +1,488 @@
+{
+	"info": {
+		"_postman_id": "abef9aa4-e7d5-49d2-acc8-290e2f3d4a57",
+		"name": "TestesIntegradoLoja",
+		"description": "TestesIntegradoLoja",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Teste_Salvar",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code eh 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verificar se pedido foi cadastrado\", function () {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.pedido).to.eql('567');\r",
+							"});\r",
+							"\r",
+							"var quantidadeItens = pm.response.json().itens;\r",
+							"pm.test(\"Verificar se itens foram cadastrados\" + quantidadeItens.length, function () {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(quantidadeItens.length).to.equal(2);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"pedido\": \"{{numeroPedido}}\",\r\n  \"itens\": [\r\n    {\r\n      \"descricao\": \"Geforce RTX 3050\",\r\n      \"precoUnitario\": 3000.00,\r\n      \"qtd\": 1\r\n    },\r\n    {\r\n      \"descricao\": \"AMD Ryzen 5 3600\",\r\n      \"precoUnitario\": 1500.00,\r\n      \"qtd\": 1\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{servidor}}api/Pedido",
+					"host": [
+						"{{servidor}}api"
+					],
+					"path": [
+						"Pedido"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teste_01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code eh 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"Verificar se status foi enviado\", function () {\r",
+							"    const responseJson = pm.response.json();\r",
+							"     pm.expect(responseJson.pedido).to.eql('567');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verificar se status APROVADO\", function () {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.status).to.contains('APROVADO');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"status\": \"APROVADO\",\r\n  \"itensAprovados\": 2,\r\n  \"valorAprovado\": 4500,\r\n  \"pedido\": \"{{numeroPedido}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{servidor}}api/status",
+					"host": [
+						"{{servidor}}api"
+					],
+					"path": [
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teste_02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code eh 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verificar se status foi enviado\", function () {\r",
+							"    const responseJson = pm.response.json();\r",
+							"     pm.expect(responseJson.pedido).to.eql('567');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verificar se status APROVADO_VALOR_A_MENOR\", function () {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.status).to.contains('APROVADO_VALOR_A_MENOR');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"status\": \"APROVADO\",\r\n  \"itensAprovados\": 2,\r\n  \"valorAprovado\": 1500,\r\n  \"pedido\": \"{{numeroPedido}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{servidor}}api/status",
+					"host": [
+						"{{servidor}}api"
+					],
+					"path": [
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teste_03",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code eh 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verificar se status foi enviado\", function () {\r",
+							"    const responseJson = pm.response.json();\r",
+							"     pm.expect(responseJson.pedido).to.eql('567');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verificar se status APROVADO_VALOR_A_MAIOR\", function () {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.status).to.contains('APROVADO_VALOR_A_MAIOR');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verificar se status APROVADO_QTD_A_MAIOR\", function () {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.status).to.contains('APROVADO_QTD_A_MAIOR');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"status\": \"APROVADO\",\r\n  \"itensAprovados\": 3,\r\n  \"valorAprovado\": 5500,\r\n  \"pedido\": \"{{numeroPedido}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{servidor}}api/status",
+					"host": [
+						"{{servidor}}api"
+					],
+					"path": [
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teste_04",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code eh 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verificar se status foi enviado\", function () {\r",
+							"    const responseJson = pm.response.json();\r",
+							"     pm.expect(responseJson.pedido).to.eql('567');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verificar se status APROVADO_QTD_A_MENOR\", function () {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.status).to.contains('APROVADO_QTD_A_MENOR');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"status\": \"APROVADO\",\r\n  \"itensAprovados\": 1,\r\n  \"valorAprovado\": 4500,\r\n  \"pedido\": \"{{numeroPedido}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{servidor}}api/status",
+					"host": [
+						"{{servidor}}api"
+					],
+					"path": [
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teste_05",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code eh 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verificar se status foi enviado\", function () {\r",
+							"    const responseJson = pm.response.json();\r",
+							"     pm.expect(responseJson.pedido).to.eql('567');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verificar se status REPROVADO\", function () {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.status).to.contains('REPROVADO');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"status\": \"REPROVADO\",\r\n  \"itensAprovados\": 0,\r\n  \"valorAprovado\": 0,\r\n  \"pedido\": \"{{numeroPedido}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{servidor}}api/status",
+					"host": [
+						"{{servidor}}api"
+					],
+					"path": [
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teste_06",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code eh 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verificar se status foi enviado\", function () {\r",
+							"    const responseJson = pm.response.json();\r",
+							"     pm.expect(responseJson.pedido).to.eql('99999');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verificar se status CODIGO_PEDIDO_INVALIDO\", function () {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.status).to.contains('CODIGO_PEDIDO_INVALIDO');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"status\": \"REPROVADO\",\r\n  \"itensAprovados\": 0,\r\n  \"valorAprovado\": 0,\r\n  \"pedido\": \"99999\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{servidor}}api/status",
+					"host": [
+						"{{servidor}}api"
+					],
+					"path": [
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teste_Consultar",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code eh 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verificar se pedido foi consultado\", function () {\r",
+							"    const responseJson = pm.response.json();\r",
+							"     pm.expect(responseJson.pedido).to.eql('567');\r",
+							"});\r",
+							"\r",
+							"var quantidadeItens = pm.response.json().itens;\r",
+							"pm.test(\"Verificar se itens foram consultados\" + quantidadeItens.length, function () {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(quantidadeItens.length).to.equal(2);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{servidor}}api/Pedido/{{numeroPedido}}",
+					"host": [
+						"{{servidor}}api"
+					],
+					"path": [
+						"Pedido",
+						"{{numeroPedido}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teste_Atualizar",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code eh 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verificar se pedido foi atualizado\", function () {\r",
+							"    const responseJson = pm.response.json();\r",
+							"     pm.expect(responseJson.pedido).to.eql('567');\r",
+							"});\r",
+							"\r",
+							"var quantidadeItens = pm.response.json().itens;\r",
+							"pm.test(\"Verificar se itens foram atualizados: \" + quantidadeItens.length, function () {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(quantidadeItens.length).to.equal(3);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"pedido\": \"567\",\r\n  \"itens\": [\r\n    {\r\n      \"descricao\": \"Geladeira\",\r\n      \"precoUnitario\": 6500.00,\r\n      \"qtd\": 1\r\n    },\r\n    {\r\n      \"descricao\": \"Fogão\",\r\n      \"precoUnitario\": 320.00,\r\n      \"qtd\": 1\r\n    },\r\n    {\r\n      \"descricao\": \"Ar condicionado\",\r\n      \"precoUnitario\": 170.00,\r\n      \"qtd\": 2\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{servidor}}api/Pedido/{{numeroPedido}}",
+					"host": [
+						"{{servidor}}api"
+					],
+					"path": [
+						"Pedido",
+						"{{numeroPedido}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teste_Remover",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code eh 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verificar se pedido foi removido\", function () {\r",
+							"    pm.response.to.have.body(\"Número do pedido (567) removido com sucesso\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{servidor}}api/Pedido/{{numeroPedido}}",
+					"host": [
+						"{{servidor}}api"
+					],
+					"path": [
+						"Pedido",
+						"{{numeroPedido}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

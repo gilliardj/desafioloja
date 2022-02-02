@@ -45,7 +45,7 @@ namespace MercadoEletronico.Loja.Api.Controllers
         {
             try
             {
-                var pedidoExistente = _pedidoService.ConsultarPedidoPorNumeroPedidoAsync(pedidoRequest.Pedido, false);
+                var pedidoExistente = await _pedidoService.ConsultarPedidoPorNumeroPedidoAsync(pedidoRequest.Pedido, false);
                 if (pedidoExistente != null)
                 {
                     return BadRequest($"Número do pedido ({pedidoRequest.Pedido}) já existe");
